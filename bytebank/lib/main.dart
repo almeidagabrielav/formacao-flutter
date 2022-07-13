@@ -29,15 +29,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyText {
-  const MyText(Text('Bem Vindo', textDirection: TextDirection.ltr));
-   const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyText> createState() => _MyHomePageState();
-}
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
