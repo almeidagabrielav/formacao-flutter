@@ -20,35 +20,38 @@ class Users with ChangeNotifier {
   }
 
   void put(User user) {
-    final id = Random().nextDouble().toString();
-
     if (user.id != null &&
         user.id!.trim().isNotEmpty &&
         _items.containsKey(user.id)) {
       _items.update(
         user.id!,
         (_) => User(
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            avatarUrl: user.avatarUrl),
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          avatarUrl: user.avatarUrl,
+        ),
       );
     } else {
+      final id = Random().nextDouble().toString();
       //adicionar
       _items.putIfAbsent(
         id,
         () => User(
-            id: id,
-            name: user.name,
-            email: user.email,
-            avatarUrl: user.avatarUrl),
+          id: id,
+          name: user.name,
+          email: user.email,
+          avatarUrl: user.avatarUrl,
+        ),
       );
     }
     notifyListeners();
   }
 
   void remove(String? id) {
-    _items.remove(id);
-    notifyListeners();
+    if (id != null) {
+      _items.remove(id);
+      notifyListeners();
+    }
   }
 }

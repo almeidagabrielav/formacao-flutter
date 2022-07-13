@@ -12,10 +12,10 @@ class UserForm extends StatefulWidget {
 
 class _UserFormState extends State<UserForm> {
   final _form = GlobalKey<FormState>();
-  final Map<String, String?> _formData = {};
+  final Map<String, String> _formData = {};
 
   void _loadFormData(User user) {
-    _formData['id'] = user.id;
+    _formData['id'] = user.id!;
     _formData['name'] = user.name;
     _formData['email'] = user.email;
     _formData['avatarUrl'] = user.avatarUrl;
@@ -24,7 +24,7 @@ class _UserFormState extends State<UserForm> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final user = ModalRoute.of(context)!.settings.arguments as User;
+    final user = ModalRoute.of(context)?.settings.arguments as User;
     _loadFormData(user);
   }
 
@@ -64,7 +64,9 @@ class _UserFormState extends State<UserForm> {
                   initialValue: _formData['name'],
                   decoration: const InputDecoration(labelText: 'Nome'),
                   validator: (value) {
-                    if (value!.trim().isEmpty) return 'Campo obrigatório';
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Campo obrigatório';
+                    }
                     if (value.trim().length < 3) return 'Mínimo 3 caracteres';
                     return null;
                   },
